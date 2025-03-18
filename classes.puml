@@ -1,0 +1,18 @@
+@startuml
+
+class CoAwaiter
+class CoBasePromise 
+class CoVoidReturnPromise
+class CoValueReturnPromise
+class CoTask
+class CoGenerator
+
+CoBasePromise *-left- CoAwaiter  
+CoBasePromise <|-- CoVoidReturnPromise
+CoBasePromise <|-- CoValueReturnPromise
+
+CoTask *.up. CoValueReturnPromise
+CoTask *.up. CoVoidReturnPromise
+CoTask <|-- CoGenerator
+
+@enduml
