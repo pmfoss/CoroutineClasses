@@ -40,7 +40,7 @@ class CoTask
         void resume();
         
     private:
-        void handlePromiseExption() const;
+        void handlePromiseException() const;
 
         std::coroutine_handle<promise_type> mHandle{};
 };
@@ -77,7 +77,7 @@ bool CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::done() const
 template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
 CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::ReturnType CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::returnValue() const
 {
-    handlePromiseExption();
+    handlePromiseException();
     
     if(std::is_same_v<ReturnType, void>)
     {
@@ -114,7 +114,7 @@ TypeOfYield CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::yieldValue(
 template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
 void CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::resume()
 {
-    handlePromiseExption();
+    handlePromiseException();
 
     if(not done())
     {
@@ -123,7 +123,7 @@ void CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::resume()
 }
 /*private methods*/
 template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
-void CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::handlePromiseExption() const
+void CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::handlePromiseException() const
 {
     if(mHandle.promise().mException)
     {

@@ -1,4 +1,4 @@
-# C++ coroutine Classes
+# C++ coroutine Classes for universal use
 
 ## Description
 
