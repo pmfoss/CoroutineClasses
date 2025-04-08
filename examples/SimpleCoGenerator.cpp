@@ -4,6 +4,8 @@
 #include <iostream>
 #include <CoGenerator.h>
 
+using namespace CoRoutines;
+
 CoGenerator<int> sequence(int pStart, int pEnd)
 {
     for(int lIdx = pStart; lIdx <= pEnd; ++lIdx)

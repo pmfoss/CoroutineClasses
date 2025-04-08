@@ -4,6 +4,8 @@
 #ifndef CO_UTILITY_H
 #define CO_UTILITY_H 1
 
-struct CoNoneType_t {};
-
+namespace CoRoutines
+{
+    struct CoNoneType_t {};
+}
 #endif /*CO_UTILITY_H*/

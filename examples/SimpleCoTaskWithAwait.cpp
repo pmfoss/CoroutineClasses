@@ -4,6 +4,8 @@
 #include <iostream>
 #include <CoTask.h>
 
+using namespace CoRoutines;
+
 CoTask<int, int> addNumber(int pStart)
 {
     int lValue = pStart;

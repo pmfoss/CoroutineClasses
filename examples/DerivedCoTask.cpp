@@ -4,6 +4,8 @@
 #include <iostream>
 #include <CoTask.h>
 
+using namespace CoRoutines;
+
 class DerivedCoTask : public CoTask<int, std::pair<int, bool>, void, DerivedCoTask>
 {
     public:

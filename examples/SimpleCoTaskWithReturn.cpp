@@ -4,6 +4,8 @@
 #include <iostream>
 #include <CoTask.h>
 
+using namespace CoRoutines;
+
 CoTask<int, int, int> addPositivNumbers(int pStart, int pMax)
 {
     if(pStart < 0)

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <CoTask.h>
 
+using namespace CoRoutines;
+
 CoTask<int> sequence(int pStart, int pEnd)
 {
     for(int lIdx = pStart; lIdx < pEnd; ++lIdx)

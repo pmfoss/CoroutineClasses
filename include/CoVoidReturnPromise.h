@@ -6,16 +6,19 @@
 
 #include "CoBasePromise.h"
 
-template <typename CoRoutine, typename TypeOfYield, typename TypeOfAwait>
-struct CoVoidReturnPromise : CoBasePromise<CoRoutine, TypeOfYield, TypeOfAwait, void, CoVoidReturnPromise<CoRoutine, TypeOfYield, TypeOfAwait>>
+namespace CoRoutines
 {
-    void return_void() noexcept;
-};
-
-/*public methods*/
-template <typename CoRoutine, typename TypeOfYield, typename TypeOfAwait>
-void CoVoidReturnPromise<CoRoutine, TypeOfYield, TypeOfAwait>::return_void() noexcept
-{
+    template <typename CoRoutine, typename TypeOfYield, typename TypeOfAwait>
+    struct CoVoidReturnPromise : CoBasePromise<CoRoutine, TypeOfYield, TypeOfAwait, void, CoVoidReturnPromise<CoRoutine, TypeOfYield, TypeOfAwait>>
+    {
+        void return_void() noexcept;
+    };
+    
+    /*public methods*/
+    template <typename CoRoutine, typename TypeOfYield, typename TypeOfAwait>
+    void CoVoidReturnPromise<CoRoutine, TypeOfYield, TypeOfAwait>::return_void() noexcept
+    {
+    }
 }
 
 #endif /*CO_VOID_RETURN_PROMISE_H*/
