@@ -27,7 +27,7 @@ namespace CoRoutines
                                           CoVoidReturnPromise<DerivedType, YieldType, AwaitType>, 
                                           CoValueReturnPromise<DerivedType, YieldType, ReturnType, AwaitType>>::type;
     
-    
+            CoTask() = default;
             CoTask(promise_type& pPromise);
             CoTask(CoTask&& pOther);
         
