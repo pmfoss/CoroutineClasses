@@ -38,6 +38,7 @@ namespace CoRoutines
             YieldType run(AwaitType pAwaitValue = {});
             YieldType yieldValue() const;
     
+	        constexpr operator bool() const noexcept;
         protected:
             void resume();
             
@@ -112,6 +113,13 @@ namespace CoRoutines
         return mHandle.promise().mYieldValue;
     }
     
+	template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
+	constexpr CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::operator bool() const noexcept
+	{
+		return mHandle; 
+	}
+	
+	
     /*protected methods*/
     template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
     void CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::resume()
