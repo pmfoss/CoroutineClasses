@@ -15,12 +15,12 @@ namespace CoRoutines
     
         base::ReturnType mReturnValue;
         
-        void return_value(TypeOfReturn pValue) noexcept; 
+        constexpr void return_value(TypeOfReturn pValue) noexcept; 
     };
     
     /*public methods*/
     template <typename CoRoutine, typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn>
-    void CoValueReturnPromise<CoRoutine, TypeOfYield, TypeOfAwait, TypeOfReturn>::return_value(TypeOfReturn pValue) noexcept
+    constexpr void CoValueReturnPromise<CoRoutine, TypeOfYield, TypeOfAwait, TypeOfReturn>::return_value(TypeOfReturn pValue) noexcept
     {
         mReturnValue = pValue;
     }

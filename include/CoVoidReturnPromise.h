@@ -11,12 +11,12 @@ namespace CoRoutines
     template <typename CoRoutine, typename TypeOfYield, typename TypeOfAwait>
     struct CoVoidReturnPromise : CoBasePromise<CoRoutine, TypeOfYield, TypeOfAwait, void, CoVoidReturnPromise<CoRoutine, TypeOfYield, TypeOfAwait>>
     {
-        void return_void() noexcept;
+        constexpr void return_void() noexcept;
     };
     
     /*public methods*/
     template <typename CoRoutine, typename TypeOfYield, typename TypeOfAwait>
-    void CoVoidReturnPromise<CoRoutine, TypeOfYield, TypeOfAwait>::return_void() noexcept
+    constexpr void CoVoidReturnPromise<CoRoutine, TypeOfYield, TypeOfAwait>::return_void() noexcept
     {
     }
 }

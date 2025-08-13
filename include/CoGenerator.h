@@ -18,31 +18,31 @@ namespace CoRoutines
             
              struct iterator
              {
-                 bool operator==(std::default_sentinel_t) const;
-                 iterator& operator++();
-                 iterator& operator++(int);
-                 TypeOfYield operator*() const;
+                 constexpr bool operator==(std::default_sentinel_t) const;
+                 constexpr iterator& operator++();
+                 constexpr iterator& operator++(int);
+                 constexpr TypeOfYield operator*() const;
     
                  CoGenerator& mGenerator;
              };
              
-             CoGenerator(base&& pOther);
+             constexpr CoGenerator(base&& pOther);
             
-             iterator begin();
-             std::default_sentinel_t end();
+             constexpr iterator begin();
+             constexpr std::default_sentinel_t end();
     };
     
     /*CoGenerator*/
     /*constructor / destructor */
     template<typename TypeOfYield>
-    CoGenerator<TypeOfYield>::CoGenerator(CoGenerator<TypeOfYield>::base&& pOther)
+    constexpr CoGenerator<TypeOfYield>::CoGenerator(CoGenerator<TypeOfYield>::base&& pOther)
         : base(std::move(pOther))
     {
     }
     
     /*public methods*/
     template<typename TypeOfYield>
-    CoGenerator<TypeOfYield>::iterator CoGenerator<TypeOfYield>::begin()
+    constexpr CoGenerator<TypeOfYield>::iterator CoGenerator<TypeOfYield>::begin()
     {
         this->resume();
     
@@ -50,7 +50,7 @@ namespace CoRoutines
     }
     
     template<typename TypeOfYield>
-    std::default_sentinel_t CoGenerator<TypeOfYield>::end()
+    constexpr std::default_sentinel_t CoGenerator<TypeOfYield>::end()
     {
         return {};
     }
@@ -58,13 +58,13 @@ namespace CoRoutines
     /*CoGenerator::iterator*/
     /*public operators*/
     template <typename TypeOfYield>
-    bool CoGenerator<TypeOfYield>::iterator::operator==(std::default_sentinel_t) const
+    constexpr bool CoGenerator<TypeOfYield>::iterator::operator==(std::default_sentinel_t) const
     {
         return mGenerator.done();
     }
     
     template <typename TypeOfYield>
-    CoGenerator<TypeOfYield>::iterator& CoGenerator<TypeOfYield>::iterator::operator++()
+    constexpr CoGenerator<TypeOfYield>::iterator& CoGenerator<TypeOfYield>::iterator::operator++()
     {
         mGenerator.resume();
     
@@ -72,7 +72,7 @@ namespace CoRoutines
     }
     
     template <typename TypeOfYield>
-    CoGenerator<TypeOfYield>::iterator& CoGenerator<TypeOfYield>::iterator::operator++(int)
+    constexpr CoGenerator<TypeOfYield>::iterator& CoGenerator<TypeOfYield>::iterator::operator++(int)
     {
         mGenerator.resume();
     
@@ -80,7 +80,7 @@ namespace CoRoutines
     }
     
     template <typename TypeOfYield>
-    TypeOfYield CoGenerator<TypeOfYield>::iterator::operator*() const
+    constexpr TypeOfYield CoGenerator<TypeOfYield>::iterator::operator*() const
     {
         return mGenerator.yieldValue();
     }

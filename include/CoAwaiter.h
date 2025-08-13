@@ -13,8 +13,8 @@ namespace CoRoutines
     {
         PromiseType&  lPromiseType;
         constexpr bool await_ready() const noexcept;
-        AwaitType await_resume() const noexcept;
-        void await_suspend(std::coroutine_handle<>) const noexcept;
+        constexpr AwaitType await_resume() const noexcept;
+        constexpr void await_suspend(std::coroutine_handle<>) const noexcept;
     };
     
     /*public methods*/
@@ -25,13 +25,13 @@ namespace CoRoutines
     }
     
     template <typename PromiseType, typename AwaitType>
-    AwaitType CoAwaiter<PromiseType, AwaitType>::await_resume() const noexcept
+    constexpr AwaitType CoAwaiter<PromiseType, AwaitType>::await_resume() const noexcept
     {
         return lPromiseType.mAwaitValue;
     }
     
     template <typename PromiseType, typename AwaitType>
-    void CoAwaiter<PromiseType, AwaitType>::await_suspend(std::coroutine_handle<>) const noexcept
+    constexpr void CoAwaiter<PromiseType, AwaitType>::await_suspend(std::coroutine_handle<>) const noexcept
     {
     }
 }

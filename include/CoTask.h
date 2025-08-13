@@ -27,36 +27,36 @@ namespace CoRoutines
                                           CoVoidReturnPromise<DerivedType, YieldType, AwaitType>, 
                                           CoValueReturnPromise<DerivedType, YieldType, ReturnType, AwaitType>>::type;
     
-            CoTask() = default;
-            CoTask(promise_type& pPromise);
-            CoTask(CoTask&& pOther);
+            constexpr CoTask() = default;
+            constexpr CoTask(promise_type& pPromise);
+            constexpr CoTask(CoTask&& pOther);
         
             virtual ~CoTask();
         
-            bool done() const;
-            ReturnType returnValue() const;
-            YieldType run(AwaitType pAwaitValue = {});
-            YieldType yieldValue() const;
+            constexpr bool done() const;
+            constexpr ReturnType returnValue() const;
+            constexpr YieldType run(AwaitType pAwaitValue = {});
+            constexpr YieldType yieldValue() const;
     
 	        constexpr operator bool() const noexcept;
         protected:
-            void resume();
+            constexpr void resume();
             
         private:
-            void handlePromiseException() const;
+            constexpr void handlePromiseException() const;
     
             std::coroutine_handle<promise_type> mHandle{};
     };
     
     /*constructor / destructor*/
     template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
-    CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::CoTask(promise_type& pPromise)
+    constexpr CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::CoTask(promise_type& pPromise)
         : mHandle{std::coroutine_handle<promise_type>::from_promise(pPromise)}
     {
     }
     
     template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
-    CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::CoTask(CoTask&& pOther)
+    constexpr CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::CoTask(CoTask&& pOther)
         : mHandle{std::exchange(pOther.mHandle, nullptr)}
     {
     } 
@@ -72,13 +72,13 @@ namespace CoRoutines
     
     /*public methods*/
     template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
-    bool CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::done() const
+    constexpr bool CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::done() const
     {
         return mHandle.done();
     }
     
     template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
-    CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::ReturnType CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::returnValue() const
+    constexpr CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::ReturnType CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::returnValue() const
     {
         handlePromiseException();
         
@@ -96,7 +96,7 @@ namespace CoRoutines
     }
     
     template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
-    TypeOfYield CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::run(TypeOfAwait pAwaitValue)
+    constexpr TypeOfYield CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::run(TypeOfAwait pAwaitValue)
     {
         if(not done())
         {
@@ -108,7 +108,7 @@ namespace CoRoutines
     }
     
     template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
-    TypeOfYield CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::yieldValue() const
+    constexpr TypeOfYield CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::yieldValue() const
     {
         return mHandle.promise().mYieldValue;
     }
@@ -122,7 +122,7 @@ namespace CoRoutines
 	
     /*protected methods*/
     template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
-    void CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::resume()
+    constexpr void CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::resume()
     {
         handlePromiseException();
     
@@ -133,7 +133,7 @@ namespace CoRoutines
     }
     /*private methods*/
     template <typename TypeOfYield, typename TypeOfAwait, typename TypeOfReturn, typename Derived>
-    void CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::handlePromiseException() const
+    constexpr void CoTask<TypeOfYield, TypeOfAwait, TypeOfReturn, Derived>::handlePromiseException() const
     {
         if(mHandle.promise().mException)
         {
