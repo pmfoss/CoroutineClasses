@@ -12,6 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(GNUInstallDirs)
 
 option(COROUTINECLASSES_PKGCONFIG "Build pkg-config .pc file for CoroutineClasses" OFF)
+option(COROUTINECLASSES_EXAMPLES "Build examples for CoroutineClasses" OFF)
 
 set(INCLUDE_INSTALL_DIR
       "${CMAKE_INSTALL_INCLUDEDIR}/CoroutineClasses"
@@ -23,7 +24,6 @@ set(PKGCONFIG_INSTALL_DIR
     CACHE PATH "The directory relative to CMAKE_INSTALL_PREFIX where coroutineclasses.pc is installed"
    )
 
-
 foreach(var INCLUDE_INSTALL_DIR CMAKEPACKAGE_INSTALL_DIR PKGCONFIG_INSTALL_DIR)
   # If an absolute path is specified, make it relative to "{CMAKE_INSTALL_PREFIX}".
   if(IS_ABSOLUTE "${${var}}")
@@ -31,23 +31,15 @@ foreach(var INCLUDE_INSTALL_DIR CMAKEPACKAGE_INSTALL_DIR PKGCONFIG_INSTALL_DIR)
   endif()
 endforeach()
 
+add_subdirectory(sources)
 
-include_directories(include)
-
-add_subdirectory(examples)
-
-target_include_directories (coroutineclasses INTERFACE
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-  $<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>
-)
+if(COROUTINECLASSES_EXAMPLES)
+    include_directories(sources)
+    add_subdirectory(examples)
+endif()
 
 if(COROUTINECLASSES_PKGCONFIG)
     configure_file(coroutineclasses.pc.in coroutineclasses.pc @ONLY)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/coroutineclasses.pc
         DESTINATION ${PKGCONFIG_INSTALL_DIR})
 endif()
-
-install(
-    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-    DESTINATION ${INCLUDE_INSTALL_DIR}
-)
